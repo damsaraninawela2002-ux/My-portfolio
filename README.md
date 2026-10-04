@@ -1,8 +1,9 @@
 # Damsarani Nawela — Professional Full-Stack Portfolio
 
-A modern, high-performance personal portfolio website for a **Software Engineering Intern / Full-Stack Developer**. Built with a **React 19 (Vite) + Tailwind CSS + Framer Motion** frontend and a **Node.js + Express + MongoDB** backend with **JWT Authentication**.
+A modern, full-stack personal portfolio built to showcase my projects, skills and journey as an aspiring Software Engineering Intern. It includes a public website and a secure admin dashboard to manage projects and visitor messages.
 
 ---
+🔗 Live Demo: frontend-1-henna.vercel.app
 
 ## 🎨 Tech Aesthetic & Design System
 
@@ -12,6 +13,16 @@ A modern, high-performance personal portfolio website for a **Software Engineeri
 - **Theming**: Integrated Dark/Light mode switcher persisted in `localStorage`.
 
 ---
+
+## 🛠️️ Tech Stack
+
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend** | React.js, React Router, Framer Motion, CSS |
+| **Backend** | Python, FastAPI |
+| **Database** | MongoDB |
+| **Auth** | JSON Web Tokens (JWT) |
+| **Deployment** | Vercel |
 
 ## 📁 Architecture
 
@@ -77,39 +88,37 @@ my-portfolio/
 ## ⚡ Key Features
 
 ### 1. 🏠 Home Page
-- **Hero Section**: Full-screen hero with typewriter role cycling (*"Software Engineering Intern"*, *"Full-Stack Developer"*, *"React & Node.js Developer"*, *"Mobile App Enthusiast"*), glowing profile avatar, and primary CTA buttons (*View Projects*, *Contact Me*, *Download CV*).
-- **Short About**: 2-3 sentence overview leading directly to the `/about` page.
-- **Visual Tech Stack**: Categorized skill cards (*Frontend*, *Backend*, *Database*, *Tools*) with proficiency indicator dots (●●●●○), animated progress bars, and hover-lift effects.
-- **Featured Projects**: Top projects with hover zoom previews, pill tags, and quick-inspect triggers.
-- **What I Do**: 4 cards (*Web Development*, *Mobile App Development*, *Backend Development*, *Database Management*) detailing service capabilities.
-- **Final CTA**: Full-width glowing banner (*"Let's build something together"*).
+* **Hero Section:** Full-screen hero featuring a typewriter role cycling (*"Software Engineering Intern"*, *"Full-Stack Developer"*, *"React & Node.js Developer"*, *"Mobile App Enthusiast"*), a glowing profile avatar, and primary CTA buttons.
+* **Short About:** Concise overview leading directly to the `/about` page.
+* **Visual Tech Stack:** Categorized skill cards (*Frontend*, *Backend*, *Database*, *Tools*) with proficiency dots and hover-lift effects.
+* **Featured Projects:** Highlights top projects with hover zoom previews and pill tags.
+* **What I Do:** Four cards detailing core development services.
+* **Final CTA:** Full-width glowing banner with a *"Let's build something together"* call to action.
 
 ### 2. 👤 About Page
-- **Who I Am**: In-depth personal story as an HNDIT student.
-- **Education Timeline**:
-  - Higher National Diploma in Information Technology (HNDIT) — Advanced Technological Institute, Rathnapura.
-  - G.C.E. Advanced Level (A/L) Bio Technology Stream — Taxila Central College, Horana.
-- **Career Objective**: Clear statement focused on securing a software engineering internship.
-- **Expanded Technical Skills**: Deep breakdown with percentages, dots, and toolsets.
-- **Future Goals & Exploring**: Learning targets (*Next.js*, *TypeScript*, *Docker*, *AWS*).
+* **Who I Am:** Personal story highlighting my background as an IT student.
+* **Education Timeline:** 
+  * Higher National Diploma in Information Technology (HNDIT) — Advanced Technological Institute, Ratnapura.
+  * G.C.E. Advanced Level (A/L) Bio Technology Stream — Taxila Central College, Horana.
+* **Career Objective:** Professional statement focused on securing a software engineering internship.
+* **Expanded Technical Skills:** Detailed breakdown with proficiency percentages and toolsets.
+* **Future Goals & Exploring:** Learning targets including *Next.js*, *TypeScript*, *Docker*, and *AWS*.
 
-### 3. 💻 Projects Page (Standout Showcase)
-- **Live Search**: Instant real-time filtering across project titles, descriptions, and technology keywords.
-- **Category Filter Tabs**: Smooth animated pill buttons (*All*, *Full-Stack*, *Web App*, *Mobile App*, *Backend*) powered by Framer Motion layout transitions.
-- **Project Detail Modal**: Inspect full project specs, architecture details, feature bullet points, and open Live Demo / GitHub repositories.
-- **Extensible Architecture**: Fetches live from the MongoDB Express API, with an automatic in-memory fallback if the database is offline.
+### 3. 💻 Projects Page
+* **Live Search:** Instant real-time filtering across project titles, descriptions, and technology keywords.
+* **Category Filter Tabs:** Smooth animated pill buttons (*All*, *Full-Stack*, *Web App*, *Mobile App*, *Backend*).
+* **Project Detail Modal:** Full project specifications, architecture details, and Live Demo / GitHub links.
+* **Extensible Architecture:** Fetches live data from the MongoDB + Express API, backed by an in-memory fallback.
 
 ### 4. 📩 Contact Page
-- **Interactive Form**: Validated inputs (Name, Email, Subject, Message) with character counter, live feedback alerts, and error states.
-- **Direct Contacts**: One-click email copy button (`damsaraninawela2002@gmail.com`), direct phone link (`077 509 6262`), and location (`Poruwadanda, Sri Lanka`).
-- **Social Profiles**: Links to GitHub and LinkedIn.
+* **Interactive Form:** Fully validated inputs with character counters and live feedback alerts.
+* **Direct Contacts:** One-click email copy button, direct phone link, and location indicator (*Poruwadanda, Sri Lanka*).
+* **Social Profiles:** Direct links to GitHub and LinkedIn.
 
 ### 5. 🛡️ Bonus Admin Dashboard (`/admin/login` & `/admin/dashboard`)
-- Protected route with **JWT token authentication**.
-- Add new projects with custom title, category, description, tech stack, bullet points, and live URLs.
-- Edit existing projects live in MongoDB.
-- Delete projects with confirmation.
-- View and manage incoming visitor contact submissions.
+* **Secure Authentication:** Protected routes powered by **JWT token authentication**.
+* **Project Management:** Add, edit, or delete projects directly in MongoDB.
+* **Message Center:** View and manage incoming visitor contact submissions.
 
 ---
 
@@ -133,7 +142,8 @@ The application will be live at `http://localhost:5173`.
 
 ---
 
-## 🔑 Admin Credentials (Default)
-- **Username**: `admin`
-- **Password**: `admin123` (configured in `Backend/.env`)
+
 - Login URL: `http://localhost:5173/admin/login`
+
+📄 License
+This project is open-source and available under the MIT License.
