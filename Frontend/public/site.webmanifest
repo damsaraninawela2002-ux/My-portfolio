@@ -1,0 +1,16 @@
+{
+  "name": "Damsarini Nawela Portfolio",
+  "short_name": "Damsarini",
+  "description": "Personal portfolio of Damsarini Nawela, Full-Stack Developer",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fdf6f0",
+  "theme_color": "#e8a0a0",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

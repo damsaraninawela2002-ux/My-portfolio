@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120" />
+      <stop offset="50%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ec4899" />
+      <stop offset="100%" stop-color="#be185d" />
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bgGrad)" />
+
+  <!-- Ambient Glow -->
+  <circle cx="400" cy="225" r="180" fill="#ec4899" opacity="0.12" filter="blur(50px)" />
+  <circle cx="250" cy="180" r="120" fill="#38bdf8" opacity="0.1" filter="blur(40px)" />
+
+  <!-- Window Container -->
+  <rect x="140" y="75" width="520" height="300" rx="20" fill="#111827" stroke="rgba(236,72,153,0.3)" stroke-width="1.5" />
+
+  <!-- Window Header -->
+  <circle cx="175" cy="105" r="6" fill="#f43f5e" opacity="0.8" />
+  <circle cx="195" cy="105" r="6" fill="#fbbf24" opacity="0.8" />
+  <circle cx="215" cy="105" r="6" fill="#34d399" opacity="0.8" />
+  <text x="400" y="110" fill="rgba(255,255,255,0.6)" font-size="12" font-family="sans-serif" text-anchor="middle" font-weight="600">Dreamy Delight • Cosmetics Store</text>
+
+  <!-- Navigation / Search bar mockup -->
+  <rect x="175" y="130" width="350" height="24" rx="6" fill="rgba(255,255,255,0.06)" />
+  <rect x="540" y="130" width="85" height="24" rx="6" fill="url(#pinkGrad)" />
+  <text x="582" y="146" fill="#fff" font-size="11" font-family="sans-serif" text-anchor="middle" font-weight="bold">Cart (3)</text>
+
+  <!-- Product cards grid -->
+  <g transform="translate(175, 175)">
+    <!-- Product 1 -->
+    <rect x="0" y="0" width="140" height="170" rx="12" fill="#1f2937" stroke="rgba(255,255,255,0.08)" />
+    <rect x="15" y="15" width="110" height="85" rx="8" fill="url(#pinkGrad)" opacity="0.4" />
+    <rect x="15" y="112" width="80" height="10" rx="5" fill="#fff" opacity="0.8" />
+    <rect x="15" y="130" width="45" height="8" rx="4" fill="url(#blueGrad)" />
+    <rect x="90" y="135" width="35" height="20" rx="6" fill="url(#pinkGrad)" />
+
+    <!-- Product 2 -->
+    <rect x="155" y="0" width="140" height="170" rx="12" fill="#1f2937" stroke="rgba(236,72,153,0.4)" />
+    <rect x="170" y="15" width="110" height="85" rx="8" fill="url(#blueGrad)" opacity="0.4" />
+    <rect x="170" y="112" width="90" height="10" rx="5" fill="#fff" opacity="0.8" />
+    <rect x="170" y="130" width="50" height="8" rx="4" fill="url(#pinkGrad)" />
+    <rect x="245" y="135" width="35" height="20" rx="6" fill="url(#blueGrad)" />
+
+    <!-- Product 3 -->
+    <rect x="310" y="0" width="140" height="170" rx="12" fill="#1f2937" stroke="rgba(255,255,255,0.08)" />
+    <rect x="325" y="15" width="110" height="85" rx="8" fill="url(#pinkGrad)" opacity="0.25" />
+    <rect x="325" y="112" width="70" height="10" rx="5" fill="#fff" opacity="0.8" />
+    <rect x="325" y="130" width="40" height="8" rx="4" fill="url(#blueGrad)" />
+    <rect x="400" y="135" width="35" height="20" rx="6" fill="url(#pinkGrad)" />
+  </g>
+</svg>

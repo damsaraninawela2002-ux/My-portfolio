@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14b8a6" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <linearGradient id="coralGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bgGrad)" />
+
+  <!-- Subtle grid lines -->
+  <g stroke="rgba(255,255,255,0.04)" stroke-width="1">
+    <line x1="0" y1="75" x2="800" y2="75" />
+    <line x1="0" y1="150" x2="800" y2="150" />
+    <line x1="0" y1="225" x2="800" y2="225" />
+    <line x1="0" y1="300" x2="800" y2="300" />
+    <line x1="0" y1="375" x2="800" y2="375" />
+    <line x1="100" y1="0" x2="100" y2="450" />
+    <line x1="200" y1="0" x2="200" y2="450" />
+    <line x1="300" y1="0" x2="300" y2="450" />
+    <line x1="400" y1="0" x2="400" y2="450" />
+    <line x1="500" y1="0" x2="500" y2="450" />
+    <line x1="600" y1="0" x2="600" y2="450" />
+    <line x1="700" y1="0" x2="700" y2="450" />
+  </g>
+
+  <!-- Glow orb -->
+  <circle cx="400" cy="225" r="160" fill="#14b8a6" opacity="0.08" filter="blur(40px)" />
+
+  <!-- Code window mockup -->
+  <rect x="160" y="90" width="480" height="270" rx="16" fill="#1e293b" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" />
+  
+  <!-- Window Header -->
+  <circle cx="190" cy="118" r="6" fill="#f43f5e" opacity="0.8" />
+  <circle cx="210" cy="118" r="6" fill="#fbbf24" opacity="0.8" />
+  <circle cx="230" cy="118" r="6" fill="#34d399" opacity="0.8" />
+  <rect x="320" y="112" width="160" height="12" rx="6" fill="rgba(255,255,255,0.1)" />
+
+  <!-- Code elements -->
+  <rect x="200" y="155" width="90" height="14" rx="4" fill="url(#tealGrad)" opacity="0.9" />
+  <rect x="300" y="155" width="150" height="14" rx="4" fill="rgba(255,255,255,0.2)" />
+  
+  <rect x="230" y="185" width="130" height="12" rx="4" fill="rgba(255,255,255,0.25)" />
+  <rect x="370" y="185" width="80" height="12" rx="4" fill="url(#coralGrad)" opacity="0.85" />
+  
+  <rect x="230" y="215" width="200" height="12" rx="4" fill="rgba(255,255,255,0.18)" />
+  
+  <rect x="230" y="245" width="110" height="12" rx="4" fill="rgba(255,255,255,0.15)" />
+  <rect x="350" y="245" width="140" height="12" rx="4" fill="url(#tealGrad)" opacity="0.75" />
+
+  <rect x="200" y="280" width="70" height="14" rx="4" fill="url(#tealGrad)" opacity="0.9" />
+
+  <!-- Floating badge -->
+  <rect x="520" y="280" width="140" height="42" rx="10" fill="#0f172a" stroke="url(#tealGrad)" stroke-width="1.5" />
+  <text x="590" y="306" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="600" fill="#14b8a6" text-anchor="middle">Full-Stack API</text>
+</svg>

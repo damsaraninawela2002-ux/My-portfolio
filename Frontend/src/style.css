@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+/* Shared across both themes */
+:root {
+  --font-heading: 'Playfair Display', serif;
+  --font-accent: 'Dancing Script', cursive;
+  --font-body: 'Poppins', sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  --transition-base: 200ms ease;
+}
+
+/* Light Mode: Blush & Rose Pink */
+:root[data-theme="light"],
+html:not(.dark) {
+  --color-bg: #fdf6f8;          /* soft blush white */
+  --color-surface: #ffffff;     /* crisp card surface */
+  --color-text: #3a2e35;        /* deep plum-brown */
+  --color-muted: #9c8890;       /* soft dusty plum */
+  --color-accent: #d88ca3;      /* rose pink — primary */
+  --color-accent-2: #c9a7eb;    /* lavender — secondary */
+  --color-accent-soft: #f6e0e6; /* pale pink for tags/badges */
+  --color-border: #f0dde3;      /* soft pastel border */
+  --color-gold: #d4af7a;        /* rose-gold for icons/dividers */
+
+  --shadow-soft: 0 4px 20px rgba(216, 140, 163, 0.15);
+  --accent-glow: rgba(216, 140, 163, 0.25);
+}
+
+/* Dark Mode: Crisp Deep Navy-Black */
+:root[data-theme="dark"],
+html.dark {
+  --color-bg: #0B0F17;          /* crisp deep navy-black */
+  --color-surface: #131826;     /* slightly lifted panel */
+  --color-text: #f7ecef;        /* warm cream */
+  --color-muted: #9a95a8;       /* muted lavender-grey */
+  --color-accent: #f0a8bd;      /* rose pink — brighter for contrast */
+  --color-accent-2: #d9bdf5;    /* lavender — brighter */
+  --color-accent-soft: #1f1a2e; /* muted purple-tinted card bg */
+  --color-border: #232a3d;      /* cool-toned border */
+  --color-gold: #e6c894;        /* brighter gold */
+
+  --shadow-soft: 0 4px 24px rgba(240, 168, 189, 0.08);
+  --accent-glow: rgba(240, 168, 189, 0.2);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* Typography Helpers */
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-signature,
+.font-accent {
+  font-family: var(--font-accent);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Glassmorphism & Elevation */
+.glass-panel {
+  background: var(--color-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
+}
+
+.card-elevation {
+  box-shadow: var(--shadow-soft);
+}
+
+.glow-effect {
+  box-shadow: 0 0 25px -5px var(--accent-glow);
+}
+
+.glow-text {
+  text-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* Thin gold-toned decorative divider */
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-gold) 50%,
+    transparent 100%
+  );
+  opacity: 0.6;
+}
+
+/* Subtle scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* Feminine selection */
+::selection {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+/* Page fade transition */
+.page-transition {
+  animation: fadeIn var(--transition-base) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
