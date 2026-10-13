@@ -1,5 +1,39 @@
 export const defaultProjects = [
   {
+    title: "FraudGuard AI – Explainable Fraud Detection System",
+    slug: "fraudguard-ai",
+    description: "A full-stack fraud detection platform that scores financial transactions with an XGBoost classifier and explains every prediction using SHAP feature attributions.",
+    category: "Full-Stack",
+    technologies: ["React", "Vite", "Tailwind CSS", "FastAPI", "Python", "XGBoost", "scikit-learn", "SHAP", "MongoDB", "JWT"],
+    features: [
+      "Trained and evaluated on the PaySim dataset (stratified 80/20 split), handling class imbalance with scale_pos_weight; achieved PR-AUC 0.82, Precision 0.88 and Recall 0.73.",
+      "FastAPI backend with JWT authentication, MongoDB storage, paginated transaction history, statistics and CSV export endpoints, with pytest API tests.",
+      "Responsive React dashboard with Recharts: risk gauge, SHAP contribution chart, fraud trend charts and a What-If Sandbox for live scenario testing."
+    ],
+    image: "/images/FraudGuard.png",
+    githubUrl: "https://github.com/damsaraninawela2002-ux/FraudGuard-AI",
+    liveDemoUrl: "",
+    featured: true,
+    order: 1
+  },
+  {
+    title: "Inventory Management System",
+    slug: "inventory-management-system",
+    description: "A full-stack inventory management application that lets administrators manage products, stock quantities and categories through a secure, easy-to-use dashboard.",
+    category: "Full-Stack",
+    technologies: ["React.js", "Vite", "Tailwind CSS", "HTML5", "CSS3", "JavaScript", "C#", "ASP.NET Core", "MongoDB"],
+    features: [
+      "Secure user login with 5 product operations (add, edit, delete, search, stock update) and full CRUD.",
+      "REST APIs built with C# and ASP.NET Core and MongoDB; endpoints tested with Postman and managed with Git/GitHub.",
+      "Administrators can manage products, stock quantities and categories from one responsive React interface."
+    ],
+    image: "/images/Inventory-Management-System.jpeg",
+    githubUrl: "https://github.com/damsaraninawela2002-ux/Inventory-Management-System",
+    liveDemoUrl: "",
+    featured: true,
+    order: 2
+  },
+  {
     title: "Dreamy Delight – Cosmetics Shop Management System",
     slug: "dreamy-delight-cosmetics",
     description: "A modern full-stack e-commerce cosmetics platform allowing users to browse beauty products, manage shopping carts, filter by category, and process client-side transactions seamlessly with an intuitive UI.",
@@ -16,7 +50,7 @@ export const defaultProjects = [
     githubUrl: "https://github.com/Damsarani/dreamy-delight-shop",
     liveDemoUrl: "",
     featured: true,
-    order: 1
+    order: 3
   },
   {
     title: "Galaxy Cinema – Ticket Booking & Theater System",
@@ -35,7 +69,7 @@ export const defaultProjects = [
     githubUrl: "https://github.com/Damsarani/galaxy-cinema",
     liveDemoUrl: "",
     featured: true,
-    order: 2
+    order: 4
   },
   {
     title: "Essay Calculator Mobile App",
@@ -53,7 +87,7 @@ export const defaultProjects = [
     githubUrl: "https://github.com/Damsarani/calculator-app",
     liveDemoUrl: "",
     featured: true,
-    order: 3
+    order: 5
   },
   {
     title: "Full-Stack Software Engineer Portfolio",
@@ -72,6 +106,6 @@ export const defaultProjects = [
     githubUrl: "https://github.com/Damsarani/my-portfolio",
     liveDemoUrl: "https://damsarani-portfolio.vercel.app",
     featured: false,
-    order: 4
+    order: 6
   }
 ];

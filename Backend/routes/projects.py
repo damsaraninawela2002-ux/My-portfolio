@@ -35,7 +35,7 @@ def format_project_doc(doc: dict) -> dict:
 )
 async def get_projects():
     projects = []
-    cursor = db.projects.find({}).sort("createdAt", -1)
+    cursor = db.projects.find({}).sort([("order", 1), ("createdAt", -1)])
     async for document in cursor:
         projects.append(format_project_doc(document))
     return projects

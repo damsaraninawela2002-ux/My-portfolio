@@ -14,7 +14,7 @@ const Projects = () => {
   usePageMeta({
     title: 'Projects Archive | Damsarini Nawela',
     description:
-      'Explore full-stack web and mobile engineering projects built by Damsarini Nawela, including Dreamy Delight Cosmetic Shop and Galaxy Cinema.',
+      'Explore full-stack web and mobile engineering projects built by Damsarini Nawela, including FraudGuard AI, Inventory Management System, and Galaxy Cinema.',
   });
 
   // Pure static data directly from content.js
@@ -27,7 +27,9 @@ const Projects = () => {
   const filteredProjects = useMemo(() => {
     return projects.filter((project) => {
       const matchesCategory =
-        activeCategory === 'All' || project.category === activeCategory;
+        activeCategory === 'All' ||
+        project.category === activeCategory ||
+        (Array.isArray(project.categories) && project.categories.includes(activeCategory));
 
       const q = searchQuery.toLowerCase().trim();
       const matchesSearch =

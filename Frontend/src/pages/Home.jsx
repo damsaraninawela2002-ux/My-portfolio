@@ -159,7 +159,7 @@ const Home = () => {
                   <div className="text-xs text-[var(--color-muted)]">Completed Certifications</div>
                 </div>
                 <div>
-                  <div className="font-heading text-2xl font-bold text-[var(--color-text)]">04</div>
+                  <div className="font-heading text-2xl font-bold text-[var(--color-text)]">06</div>
                   <div className="text-xs text-[var(--color-muted)]">Projects</div>
                 </div>
                 <div>
