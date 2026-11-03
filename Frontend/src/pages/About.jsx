@@ -75,7 +75,7 @@ const About = () => {
               </div>
               <div className="flex items-center gap-1.5 text-xs text-[var(--color-muted)]">
                 <CheckCircle2 className="w-4 h-4 text-[var(--color-gold)]" />
-                <span>Available for Work</span>
+                <span>Open to on-site, hybrid and remote software engineering internships.</span>
               </div>
             </div>
           </motion.div>

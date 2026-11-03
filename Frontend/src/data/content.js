@@ -9,7 +9,7 @@ export const personalInfo = {
   headline: "Crafting modern, reliable web & mobile applications with precision and passion.",
   shortBio:
     "I am always eager to learn new technologies and apply them to real-world projects to make my solutions more efficient, reliable, and user-friendly.",
-  location: "49C, Rathnapura Road, Poruwadanda, Horana",
+  location: "Horana, Sri Lanka",
   phone: "077 509 6262",
   email: "damsaraninawela2002@gmail.com",
   linkedin: "https://linkedin.com/in/damsaraninawela",

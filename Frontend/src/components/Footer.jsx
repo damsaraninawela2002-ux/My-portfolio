@@ -111,7 +111,7 @@ const Footer = () => {
                 <span>{personalInfo.phone}</span>
               </li>
               <li className="text-xs text-[var(--color-muted)] mt-2">
-                Based in {personalInfo.location}. Open for on-site & remote software engineering opportunities.
+                Based in {personalInfo.location}. Open to on-site, hybrid and remote software engineering internships.
               </li>
             </ul>
           </div>
