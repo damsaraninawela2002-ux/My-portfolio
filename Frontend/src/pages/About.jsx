@@ -172,7 +172,7 @@ const About = () => {
             align="left"
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-wrap justify-center gap-6">
             {skillCategories.map((category, catIdx) => (
               <motion.div
                 key={category.name}
@@ -180,7 +180,7 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: catIdx * 0.1 }}
-                className="rounded-2xl p-6 bg-[var(--color-surface)] border border-[var(--color-border)] card-elevation"
+                className="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] rounded-2xl p-6 bg-[var(--color-surface)] border border-[var(--color-border)] card-elevation flex flex-col justify-between"
               >
                 <h4 className="font-heading text-xl font-bold text-[var(--color-text)] mb-4 flex items-center justify-between">
                   <span>{category.name} Proficiency</span>

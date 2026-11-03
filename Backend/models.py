@@ -8,11 +8,17 @@ from datetime import datetime
 class ProjectBase(BaseModel):
     title: str = Field(..., min_length=1, max_length=150)
     description: str = Field(..., min_length=1)
+    problem: Optional[str] = ""
+    explainability: Optional[str] = ""
     category: Optional[str] = "Full-Stack"
     slug: Optional[str] = ""
+    role: Optional[str] = "Solo Full-Stack Project"
     features: List[str] = Field(default_factory=list)
     technologies: List[str] = Field(default_factory=list)
+    stack: List[str] = Field(default_factory=list)
+    images: List[str] = Field(default_factory=list, min_length=1, max_length=6)
     githubUrl: Optional[str] = Field(default="", alias="github_link")
+    liveUrl: Optional[str] = ""
     liveDemoUrl: Optional[str] = Field(default="", alias="live_link")
     image: Optional[str] = Field(default="", alias="image_url")
     featured: Optional[bool] = False
@@ -27,11 +33,17 @@ class ProjectCreate(ProjectBase):
 class ProjectUpdate(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
+    problem: Optional[str] = None
+    explainability: Optional[str] = None
     category: Optional[str] = None
     slug: Optional[str] = None
+    role: Optional[str] = None
     features: Optional[List[str]] = None
     technologies: Optional[List[str]] = None
+    stack: Optional[List[str]] = None
+    images: Optional[List[str]] = Field(default=None, min_length=1, max_length=6)
     githubUrl: Optional[str] = None
+    liveUrl: Optional[str] = None
     liveDemoUrl: Optional[str] = None
     image: Optional[str] = None
     featured: Optional[bool] = None

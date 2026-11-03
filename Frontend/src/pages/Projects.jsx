@@ -32,11 +32,13 @@ const Projects = () => {
         (Array.isArray(project.categories) && project.categories.includes(activeCategory));
 
       const q = searchQuery.toLowerCase().trim();
+      const stack = project.stack || project.technologies || [];
       const matchesSearch =
         !q ||
         project.title?.toLowerCase().includes(q) ||
         project.description?.toLowerCase().includes(q) ||
-        project.technologies?.some((tech) => tech.toLowerCase().includes(q)) ||
+        project.role?.toLowerCase().includes(q) ||
+        stack.some((tech) => tech.toLowerCase().includes(q)) ||
         project.features?.some((feat) => feat.toLowerCase().includes(q));
 
       return matchesCategory && matchesSearch;
@@ -47,6 +49,8 @@ const Projects = () => {
     setActiveCategory('All');
     setSearchQuery('');
   };
+
+  const showFilters = projects.length > 6;
 
   return (
     <div className="min-h-screen pt-24 pb-20">
@@ -59,79 +63,81 @@ const Projects = () => {
           subtitle="Explore interactive full-stack applications, mobile apps, and systems engineering projects with live demos and source code."
         />
 
-        {/* CONTROLS BAR: Search & Category Filter Pills */}
-        <div className="mb-10 space-y-6">
-          {/* Real-Time Search Bar */}
-          <div className="max-w-2xl mx-auto">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[var(--color-muted)]">
-                <Search className="w-5 h-5" />
+        {/* CONTROLS BAR: Search & Category Filter Pills (shown only if > 6 projects) */}
+        {showFilters && (
+          <div className="mb-10 space-y-6">
+            {/* Real-Time Search Bar */}
+            <div className="max-w-2xl mx-auto">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[var(--color-muted)]">
+                  <Search className="w-5 h-5" />
+                </div>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search projects by name, technology (e.g. React, MySQL), or keywords..."
+                  className="w-full pl-11 pr-10 py-3.5 rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/50 focus:border-[var(--color-accent)] transition-all text-sm shadow-sm"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[var(--color-muted)] hover:text-[var(--color-text)] cursor-pointer"
+                    aria-label="Clear search"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
               </div>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search projects by name, technology (e.g. React, MySQL), or keywords..."
-                className="w-full pl-11 pr-10 py-3.5 rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/50 focus:border-[var(--color-accent)] transition-all text-sm shadow-sm"
-              />
-              {searchQuery && (
+            </div>
+
+            {/* Category Filter Pills (Framer Motion layout animation) */}
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
+              {categories.map((category) => {
+                const isActive = activeCategory === category;
+                return (
+                  <button
+                    key={category}
+                    onClick={() => setActiveCategory(category)}
+                    className={`relative px-4 py-2 rounded-2xl text-xs sm:text-sm font-semibold transition-colors duration-200 cursor-pointer ${
+                      isActive
+                        ? 'text-[#241a20]'
+                        : 'text-[var(--color-muted)] hover:text-[var(--color-text)] bg-[var(--color-surface)] hover:bg-[var(--color-accent-soft)]/50 border border-[var(--color-border)]'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeCategoryPill"
+                        className="absolute inset-0 bg-gradient-to-r from-[#d88ca3] to-[#c9a7eb] dark:from-[#f0a8bd] dark:to-[#d9bdf5] rounded-2xl shadow-md shadow-[#f0a8bd]/25"
+                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{category}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Active filter summary count */}
+            <div className="flex items-center justify-between text-xs text-[var(--color-muted)] max-w-7xl mx-auto px-1">
+              <span>
+                Showing {filteredProjects.length} of {projects.length} projects
+              </span>
+              {(activeCategory !== 'All' || searchQuery) && (
                 <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[var(--color-muted)] hover:text-[var(--color-text)] cursor-pointer"
-                  aria-label="Clear search"
+                  onClick={clearFilters}
+                  className="text-[var(--color-accent)] hover:underline font-semibold cursor-pointer"
                 >
-                  <X className="w-4 h-4" />
+                  Reset Filters
                 </button>
               )}
             </div>
           </div>
+        )}
 
-          {/* Category Filter Pills (Framer Motion layout animation) */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
-            {categories.map((category) => {
-              const isActive = activeCategory === category;
-              return (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`relative px-4 py-2 rounded-2xl text-xs sm:text-sm font-semibold transition-colors duration-200 cursor-pointer ${
-                    isActive
-                      ? 'text-[#241a20]'
-                      : 'text-[var(--color-muted)] hover:text-[var(--color-text)] bg-[var(--color-surface)] hover:bg-[var(--color-accent-soft)]/50 border border-[var(--color-border)]'
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeCategoryPill"
-                      className="absolute inset-0 bg-gradient-to-r from-[#d88ca3] to-[#c9a7eb] dark:from-[#f0a8bd] dark:to-[#d9bdf5] rounded-2xl shadow-md shadow-[#f0a8bd]/25"
-                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{category}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Active filter summary count */}
-          <div className="flex items-center justify-between text-xs text-[var(--color-muted)] max-w-7xl mx-auto px-1">
-            <span>
-              Showing {filteredProjects.length} of {projects.length} projects
-            </span>
-            {(activeCategory !== 'All' || searchQuery) && (
-              <button
-                onClick={clearFilters}
-                className="text-[var(--color-accent)] hover:underline font-semibold cursor-pointer"
-              >
-                Reset Filters
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* PROJECTS GRID with layout animation */}
+        {/* PROJECTS LIST with layout animation */}
         {filteredProjects.length > 0 ? (
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <motion.div layout className="space-y-8 sm:space-y-10">
             <AnimatePresence>
               {filteredProjects.map((project, idx) => (
                 <ProjectCard

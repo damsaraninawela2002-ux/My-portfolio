@@ -21,9 +21,21 @@ def format_project_doc(doc: dict) -> dict:
     if "githubUrl" not in doc:
         doc["githubUrl"] = doc.get("github_link", "")
     if "liveDemoUrl" not in doc:
-        doc["liveDemoUrl"] = doc.get("live_link", "")
+        doc["liveDemoUrl"] = doc.get("liveUrl") or doc.get("live_link", "")
+    if "liveUrl" not in doc:
+        doc["liveUrl"] = doc.get("liveDemoUrl", "")
     if "image" not in doc:
         doc["image"] = doc.get("image_url", "")
+    if not doc.get("images"):
+        doc["images"] = [doc["image"]] if doc.get("image") else []
+    if not doc.get("image") and doc.get("images"):
+        doc["image"] = doc["images"][0]
+    if not doc.get("stack"):
+        doc["stack"] = doc.get("technologies", [])
+    if not doc.get("technologies") and doc.get("stack"):
+        doc["technologies"] = doc["stack"]
+    if not doc.get("role"):
+        doc["role"] = "Solo Full-Stack Project"
     return doc
 
 # 1. GET /api/projects (Public, list all)
@@ -100,6 +112,18 @@ async def create_project(
     doc["updatedAt"] = now
     
     # Store with both camelCase and snake_case aliases for broad compatibility
+    if not doc.get("liveDemoUrl") and doc.get("liveUrl"):
+        doc["liveDemoUrl"] = doc["liveUrl"]
+    if not doc.get("liveUrl") and doc.get("liveDemoUrl"):
+        doc["liveUrl"] = doc["liveDemoUrl"]
+    if not doc.get("images") and doc.get("image"):
+        doc["images"] = [doc["image"]]
+    if not doc.get("image") and doc.get("images"):
+        doc["image"] = doc["images"][0]
+    if not doc.get("stack") and doc.get("technologies"):
+        doc["stack"] = doc["technologies"]
+    if not doc.get("technologies") and doc.get("stack"):
+        doc["technologies"] = doc["stack"]
     doc["github_link"] = doc.get("githubUrl", "")
     doc["live_link"] = doc.get("liveDemoUrl", "")
     doc["image_url"] = doc.get("image", "")
@@ -132,10 +156,20 @@ async def update_project(
     # Keep aliases synchronized
     if "githubUrl" in update_data:
         update_data["github_link"] = update_data["githubUrl"]
+    if "liveUrl" in update_data and "liveDemoUrl" not in update_data:
+        update_data["liveDemoUrl"] = update_data["liveUrl"]
     if "liveDemoUrl" in update_data:
         update_data["live_link"] = update_data["liveDemoUrl"]
+        if "liveUrl" not in update_data:
+            update_data["liveUrl"] = update_data["liveDemoUrl"]
+    if "images" in update_data and update_data["images"] and "image" not in update_data:
+        update_data["image"] = update_data["images"][0]
     if "image" in update_data:
         update_data["image_url"] = update_data["image"]
+    if "stack" in update_data and "technologies" not in update_data:
+        update_data["technologies"] = update_data["stack"]
+    if "technologies" in update_data and "stack" not in update_data:
+        update_data["stack"] = update_data["technologies"]
 
     result = await db.projects.find_one_and_update(
         {"_id": ObjectId(id)},

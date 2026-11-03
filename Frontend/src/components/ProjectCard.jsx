@@ -1,127 +1,163 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { ExternalLink, ArrowUpRight, CheckCircle2, Briefcase, Layers } from 'lucide-react';
 import { Github } from './Icons';
 import Badge from './Badge';
+import Button from './Button';
+import ProjectCarousel from './ProjectCarousel';
+import { normalizeProject } from '../data/content';
 
-const ProjectCard = ({ project, onSelect, index = 0 }) => {
+const ProjectCard = ({ project: rawProject, onSelect, index = 0 }) => {
+  const project = normalizeProject(rawProject);
+  const numberLabel = String(index + 1).padStart(2, '0');
+  const isImageRightOnDesktop = index % 2 === 1;
+
+  const stackList =
+    Array.isArray(project.stack) && project.stack.length > 0
+      ? project.stack
+      : project.technologies || [];
+
+  const liveLink = project.liveUrl || project.liveDemoUrl;
+  const githubLink = project.githubUrl || project.github;
+
   return (
     <motion.article
       layout
-      initial={{ opacity: 0, y: 25 }}
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.45, delay: index * 0.1 }}
-      whileHover={{ y: -6 }}
-      className="group relative flex flex-col rounded-2xl overflow-hidden bg-[var(--color-surface)] border border-[var(--color-border)] card-elevation hover:border-[var(--color-accent)]/50 transition-all duration-300"
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.5, delay: Math.min(index * 0.08, 0.25) }}
+      className="group relative rounded-3xl overflow-hidden bg-[var(--color-surface)] border border-[var(--color-border)] card-elevation hover:border-[var(--color-accent)]/50 transition-all duration-300 p-5 sm:p-8 lg:p-10"
     >
-      {/* Thumbnail Container */}
-      <div
-        className="relative h-48 sm:h-52 w-full overflow-hidden bg-[#131826] cursor-pointer"
-        onClick={() => onSelect(project)}
-      >
-        <img
-          src={project.image || '/images/projects/portfolio-preview.svg'}
-          alt={project.title}
-          className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-500 ease-out"
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = '/images/projects/portfolio-preview.svg';
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-surface)]/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-
-        {/* Category Pill Tag */}
-        <div className="absolute top-3 left-3 z-10">
-          <Badge variant="rose" size="xs">
-            {project.category || 'Full-Stack'}
-          </Badge>
-        </div>
-
-        {/* Hover Quick-inspect Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-[#0B0F17]/40 backdrop-blur-[2px] transition-opacity duration-300">
-          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold bg-[var(--color-surface)] text-[var(--color-text)] shadow-lg border border-[var(--color-border)]">
-            <span>Inspect Project</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-[var(--color-accent)]" />
-          </span>
-        </div>
-      </div>
-
-      {/* Content Container */}
-      <div className="flex flex-col flex-1 p-5 sm:p-6">
-        <h3
-          onClick={() => onSelect(project)}
-          className="font-heading text-lg font-bold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors cursor-pointer line-clamp-1"
-          title={project.title}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-center">
+        {/* Carousel Column (alternates left / right on desktop, stacked top on mobile) */}
+        <div
+          className={`lg:col-span-6 ${
+            isImageRightOnDesktop ? 'lg:order-2' : 'lg:order-1'
+          }`}
         >
-          {project.title}
-        </h3>
-
-        <p className="mt-2 text-xs sm:text-sm text-[var(--color-muted)] line-clamp-2 leading-relaxed flex-1 font-body">
-          {project.description}
-        </p>
-
-        {/* Feature Highlights (Bullet points) */}
-        {project.features && project.features.length > 0 && (
-          <ul className="mt-3.5 space-y-1.5 pt-3 border-t border-[var(--color-border)]">
-            {project.features.slice(0, 2).map((feat, idx) => (
-              <li key={idx} className="flex items-start gap-1.5 text-[11px] sm:text-xs text-[var(--color-muted)] line-clamp-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-gold)] mt-0.5 flex-shrink-0" />
-                <span className="truncate">{feat}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {/* Technologies Pills */}
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {project.technologies?.slice(0, 4).map((tech, idx) => (
-            <Badge key={idx} variant="lavender" size="xs">
-              {tech}
-            </Badge>
-          ))}
-          {project.technologies?.length > 4 && (
-            <span className="text-[10px] text-[var(--color-muted)] self-center">
-              +{project.technologies.length - 4} more
-            </span>
-          )}
+          <ProjectCarousel
+            images={project.images}
+            title={project.title}
+            isPhone={project.category === 'Mobile App' || project.slug === 'easy-calculator'}
+          />
         </div>
 
-        {/* Card Footer Actions */}
-        <div className="mt-5 pt-4 border-t border-[var(--color-border)] flex flex-wrap items-center justify-between gap-2.5">
-          <button
-            onClick={() => onSelect(project)}
-            className="text-xs font-semibold text-[var(--color-accent)] hover:underline inline-flex items-center gap-1 cursor-pointer py-1"
-          >
-            <span>View Details</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </button>
+        {/* Details Column */}
+        <div
+          className={`lg:col-span-6 flex flex-col justify-between ${
+            isImageRightOnDesktop ? 'lg:order-1' : 'lg:order-2'
+          }`}
+        >
+          <div>
+            {/* Top Meta Row: Number Label + Category Badge */}
+            <div className="flex items-center justify-between gap-3 mb-3">
+              <div className="flex items-center gap-3">
+                <span className="font-heading text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#d88ca3] via-[#c9a7eb] to-[#d4af7a] dark:from-[#f0a8bd] dark:via-[#d9bdf5] dark:to-[#e6c894]">
+                  {numberLabel}
+                </span>
+                <span className="h-4 w-[1.5px] bg-[var(--color-border)]" />
+                <Badge variant="rose" size="xs">
+                  {project.category || 'Full-Stack'}
+                </Badge>
+              </div>
+            </div>
 
-          <div className="flex items-center gap-2">
-            {(project.github || project.githubUrl) && (
-              <a
-                href={project.github || project.githubUrl}
+            {/* Title */}
+            <h3
+              onClick={() => onSelect && onSelect(project)}
+              className="font-heading text-xl sm:text-2xl lg:text-3xl font-bold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors cursor-pointer leading-snug"
+              title={project.title}
+            >
+              {project.title}
+            </h3>
+
+            {/* Description */}
+            <p className="mt-2.5 text-xs sm:text-sm lg:text-base text-[var(--color-muted)] line-clamp-2 leading-relaxed font-body">
+              {project.description}
+            </p>
+
+            {/* Role Line */}
+            {project.role && (
+              <div className="mt-4 flex items-center gap-2 text-xs sm:text-sm font-body">
+                <Briefcase className="w-4 h-4 text-[var(--color-accent)] flex-shrink-0" />
+                <span className="font-semibold text-[var(--color-text)]">Role:</span>
+                <span className="text-[var(--color-muted)]">{project.role}</span>
+              </div>
+            )}
+
+            {/* Stack Line ("React · FastAPI · MongoDB") */}
+            {stackList.length > 0 && (
+              <div className="mt-2.5 flex items-start gap-2 text-xs sm:text-sm font-body">
+                <Layers className="w-4 h-4 text-[var(--color-gold)] flex-shrink-0 mt-0.5" />
+                <div className="min-w-0 flex-1">
+                  <span className="font-semibold text-[var(--color-text)] mr-1.5">
+                    Stack:
+                  </span>
+                  <span className="text-[var(--color-muted)] leading-relaxed">
+                    {stackList.join(' · ')}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Feature Highlights (first 2 bullets) */}
+            {project.features && project.features.length > 0 && (
+              <ul className="mt-4 space-y-1.5 pt-3.5 border-t border-[var(--color-border)]">
+                {project.features.slice(0, 2).map((feat, idx) => (
+                  <li
+                    key={idx}
+                    className="flex items-start gap-2 text-xs text-[var(--color-muted)] line-clamp-1 font-body"
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-gold)] mt-0.5 flex-shrink-0" />
+                    <span className="truncate">{feat}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {/* Action Buttons: GitHub, Live demo (if liveUrl present), View details */}
+          <div className="mt-6 pt-4 border-t border-[var(--color-border)] flex flex-wrap items-center gap-3">
+            {githubLink && (
+              <Button
+                href={githubLink}
+                variant="secondary"
+                size="sm"
+                icon={Github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-[var(--color-text)] bg-[var(--color-surface)] hover:bg-[var(--color-accent-soft)]/70 border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all hover:scale-102 shadow-sm"
-                title="View on GitHub"
                 aria-label={`View ${project.title} on GitHub`}
               >
-                <Github className="w-3.5 h-3.5 text-[var(--color-accent)]" />
-                <span>View on GitHub</span>
-              </a>
+                GitHub
+              </Button>
             )}
-            {project.liveDemoUrl && (
-              <a
-                href={project.liveDemoUrl}
+
+            {liveLink && (
+              <Button
+                href={liveLink}
+                variant="glow"
+                size="sm"
+                icon={ExternalLink}
+                iconPosition="right"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-1.5 rounded-xl text-[var(--color-muted)] hover:text-[var(--color-accent)] hover:bg-[var(--color-accent-soft)]/50 border border-[var(--color-border)] transition-colors"
-                title="Live Demo"
-                aria-label="Live Demo"
+                aria-label={`Open live demo for ${project.title}`}
               >
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
+                Live demo
+              </Button>
+            )}
+
+            {onSelect && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => onSelect(project)}
+                icon={ArrowUpRight}
+                iconPosition="right"
+              >
+                View details
+              </Button>
             )}
           </div>
         </div>

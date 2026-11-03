@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, CheckCircle2, Layers } from 'lucide-react';
+import { X, ExternalLink, CheckCircle2, Layers, AlertCircle, Sparkles, Briefcase } from 'lucide-react';
 import { Github } from './Icons';
 import Badge from './Badge';
 import Button from './Button';
+import { normalizeProject } from '../data/content';
 
-const ProjectDetailModal = ({ project, isOpen, onClose }) => {
+const ProjectDetailModal = ({ project: rawProject, isOpen, onClose }) => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -20,7 +21,15 @@ const ProjectDetailModal = ({ project, isOpen, onClose }) => {
     };
   }, [isOpen, onClose]);
 
-  if (!project) return null;
+  if (!rawProject) return null;
+
+  const project = normalizeProject(rawProject);
+  const stackList =
+    Array.isArray(project.stack) && project.stack.length > 0
+      ? project.stack
+      : project.technologies || [];
+  const liveLink = project.liveUrl || project.liveDemoUrl;
+  const githubLink = project.githubUrl || project.github;
 
   return (
     <AnimatePresence>
@@ -48,7 +57,11 @@ const ProjectDetailModal = ({ project, isOpen, onClose }) => {
               <img
                 src={project.image || '/images/projects/portfolio-preview.svg'}
                 alt={project.title}
-                className="w-full h-full object-cover object-center opacity-90"
+                className={`w-full h-full ${
+                  project.category === 'Mobile App' || project.slug === 'easy-calculator'
+                    ? 'object-contain bg-[#111722]'
+                    : 'object-cover'
+                } object-center opacity-90`}
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = '/images/projects/portfolio-preview.svg';
@@ -79,9 +92,43 @@ const ProjectDetailModal = ({ project, isOpen, onClose }) => {
                 {project.title}
               </h3>
 
+              {project.role && (
+                <div className="mt-2 flex items-center gap-2 text-xs sm:text-sm font-body">
+                  <Briefcase className="w-4 h-4 text-[var(--color-accent)] flex-shrink-0" />
+                  <span className="font-semibold text-[var(--color-text)]">Role:</span>
+                  <span className="text-[var(--color-muted)]">{project.role}</span>
+                </div>
+              )}
+
               <p className="mt-3 text-sm sm:text-base text-[var(--color-muted)] leading-relaxed font-body">
                 {project.description}
               </p>
+
+              {/* The Problem */}
+              {project.problem && (
+                <div className="mt-6">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text)] flex items-center gap-2 mb-3">
+                    <AlertCircle className="w-4 h-4 text-[var(--color-accent)]" />
+                    The Problem
+                  </h4>
+                  <p className="text-xs sm:text-sm text-[var(--color-muted)] leading-relaxed font-body">
+                    {project.problem}
+                  </p>
+                </div>
+              )}
+
+              {/* Why Explainability Matters */}
+              {project.explainability && (
+                <div className="mt-6">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text)] flex items-center gap-2 mb-3">
+                    <Sparkles className="w-4 h-4 text-[var(--color-accent)]" />
+                    Why Explainability Matters
+                  </h4>
+                  <p className="text-xs sm:text-sm text-[var(--color-muted)] leading-relaxed font-body">
+                    {project.explainability}
+                  </p>
+                </div>
+              )}
 
               {/* Key Features List */}
               {project.features && project.features.length > 0 && (
@@ -102,14 +149,14 @@ const ProjectDetailModal = ({ project, isOpen, onClose }) => {
               )}
 
               {/* Technologies Used */}
-              {project.technologies && project.technologies.length > 0 && (
+              {stackList.length > 0 && (
                 <div className="mt-6">
                   <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text)] flex items-center gap-2 mb-3">
                     <Layers className="w-4 h-4 text-[var(--color-accent)]" />
                     Technologies & Libraries
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, idx) => (
+                    {stackList.map((tech, idx) => (
                       <Badge key={idx} variant="lavender" size="sm">
                         {tech}
                       </Badge>
@@ -121,9 +168,9 @@ const ProjectDetailModal = ({ project, isOpen, onClose }) => {
               {/* Action Buttons */}
               <div className="mt-8 pt-6 border-t border-[var(--color-border)] flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
-                  {project.liveDemoUrl && (
+                  {liveLink && (
                     <Button
-                      href={project.liveDemoUrl}
+                      href={liveLink}
                       variant="glow"
                       size="sm"
                       icon={ExternalLink}
@@ -132,9 +179,9 @@ const ProjectDetailModal = ({ project, isOpen, onClose }) => {
                       Live Demo
                     </Button>
                   )}
-                  {(project.github || project.githubUrl) && (
+                  {githubLink && (
                     <Button
-                      href={project.github || project.githubUrl}
+                      href={githubLink}
                       variant="secondary"
                       size="sm"
                       icon={Github}

@@ -11,9 +11,24 @@ const projectSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    role: {
+      type: String,
+      default: 'Solo Full-Stack Project',
+      trim: true,
+    },
     description: {
       type: String,
       required: true,
+      trim: true,
+    },
+    problem: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    explainability: {
+      type: String,
+      default: '',
       trim: true,
     },
     category: {
@@ -21,6 +36,10 @@ const projectSchema = new mongoose.Schema(
       required: true,
       enum: ['Full-Stack', 'Web App', 'Mobile App', 'Backend', 'Other'],
       default: 'Full-Stack',
+    },
+    stack: {
+      type: [String],
+      default: [],
     },
     technologies: {
       type: [String],
@@ -30,11 +49,26 @@ const projectSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    images: {
+      type: [String],
+      default: [],
+      validate: {
+        validator: function (arr) {
+          return Array.isArray(arr) && arr.length >= 1 && arr.length <= 6;
+        },
+        message: 'A project must have between 1 and 6 images.',
+      },
+    },
     image: {
       type: String,
       default: '',
     },
     githubUrl: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    liveUrl: {
       type: String,
       default: '',
       trim: true,

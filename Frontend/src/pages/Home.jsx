@@ -12,12 +12,14 @@ import {
   Wrench,
   Sparkles,
   Layers,
+  Brain,
+  Cpu,
 } from 'lucide-react';
 import Button from '../components/Button';
 import SectionHeading from '../components/SectionHeading';
 import ProjectCard from '../components/ProjectCard';
 import ProjectDetailModal from '../components/ProjectDetailModal';
-import { personalInfo, whatIDo, skillCategories, defaultProjects } from '../data/content';
+import { personalInfo, whatIDo, skillCategories, defaultProjects, heroStats } from '../data/content';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 const iconMap = {
@@ -27,6 +29,8 @@ const iconMap = {
   Database: Database,
   Layout: Layers,
   Wrench: Wrench,
+  Brain: Brain,
+  Cpu: Cpu,
 };
 
 const Home = () => {
@@ -44,8 +48,8 @@ const Home = () => {
   // Selected project for detail modal
   const [selectedProject, setSelectedProject] = useState(null);
 
-  // Static featured projects directly from content.js
-  const featuredProjects = defaultProjects.filter((p) => p.featured).slice(0, 3);
+  // Static featured projects directly from content.js (top 4 in order)
+  const featuredProjects = defaultProjects.filter((p) => p.featured).slice(0, 4);
 
   useEffect(() => {
     const roles = personalInfo.roles;
@@ -155,15 +159,21 @@ const Home = () => {
                 className="mt-12 grid grid-cols-3 gap-6 pt-6 border-t border-[var(--color-border)] w-full max-w-md font-body"
               >
                 <div>
-                  <div className="font-heading text-2xl font-bold text-[var(--color-text)]">03</div>
+                  <div className="font-heading text-2xl font-bold text-[var(--color-text)]">
+                    {heroStats.completedCertifications}
+                  </div>
                   <div className="text-xs text-[var(--color-muted)]">Completed Certifications</div>
                 </div>
                 <div>
-                  <div className="font-heading text-2xl font-bold text-[var(--color-text)]">06</div>
+                  <div className="font-heading text-2xl font-bold text-[var(--color-text)]">
+                    {heroStats.projectsCount}
+                  </div>
                   <div className="text-xs text-[var(--color-muted)]">Projects</div>
                 </div>
                 <div>
-                  <div className="font-heading text-2xl font-bold text-[var(--color-text)]">10+</div>
+                  <div className="font-heading text-2xl font-bold text-[var(--color-text)]">
+                    {heroStats.techSkillsCount}
+                  </div>
                   <div className="text-xs text-[var(--color-muted)]">Tech Skills</div>
                 </div>
               </motion.div>
@@ -258,7 +268,7 @@ const Home = () => {
             subtitle=""
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex flex-wrap justify-center gap-6">
             {skillCategories.map((category, catIdx) => {
               const CategoryIcon = iconMap[category.icon] || Code2;
               return (
@@ -269,7 +279,7 @@ const Home = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.45, delay: catIdx * 0.1 }}
                   whileHover={{ y: -6 }}
-                  className="rounded-2xl p-6 bg-[var(--color-surface)] border border-[var(--color-border)] card-elevation hover:border-[var(--color-accent)]/50 transition-all duration-300 flex flex-col justify-between"
+                  className="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] rounded-2xl p-6 bg-[var(--color-surface)] border border-[var(--color-border)] card-elevation hover:border-[var(--color-accent)]/50 transition-all duration-300 flex flex-col justify-between"
                 >
                   <div>
                     {/* Category Header */}
@@ -363,7 +373,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="space-y-8 sm:space-y-10">
             {featuredProjects.map((project, idx) => (
               <ProjectCard
                 key={project._id || project.slug || idx}
