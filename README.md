@@ -14,9 +14,6 @@ Full-stack personal portfolio of **Damsarini Nawela** — Software Engineering I
 
 ---
 
-## 🖼️ Preview
-
-![Home Page Screenshot](docs/screenshots/home.png)
 
 ---
 
